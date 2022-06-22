@@ -1,53 +1,77 @@
-let promedio1 = 0;
-let promedio2 = 0;
+let totalDeLaCompra = 0;
 
-let nombre1 = prompt ("Ingrese al primer alumno");
-let primerNumero1 = Number(prompt ("Ingrese primera nota"));
-let segundoNumero1 = Number(prompt ("Ingrese segunda nota"));
-let tercerNumero1 = Number(prompt ("Ingrese tercera nota"));
+class Motor {
+    constructor (id, nombre, precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
 
-let nombre2 = prompt ("Ingrese al segundo alumno");
-let primerNumero2 = Number(prompt ("Ingrese primera nota"));
-let segundoNumero2 = Number(prompt ("Ingrese segunda nota"));
-let tercerNumero2 = Number(prompt ("Ingrese tercera nota"));
+    calculoDePrecio (){
+        return this.precio * IVA;
+    }
+}
 
+const motor1 = new Motor("AUTCOR020","Ch 500","12500");
+const motor2 = new Motor("AUTCOR040","Ch 600","16500");
+const motor3 = new Motor("AUTCOR060","Ch 800","23500");
 
-function promediar1 (primerNumero1, segundoNumero1, tercerNumero1) {
+const productos = [motor1, motor2, motor3];
+
+const carrito = [];
+
+function agregarAlCarrito (id) {
+
+    const productoEncontrado = productos.find(motor=> motor.id == id);
+
+    if(productoEncontrado == undefined) {
+        alert("Producto Inexistente");
+    }
+    else {
+        carrito.push(productoEncontrado);
+    }
+}
+
+function mostrarCarritoActual () {
     
-    return ((primerNumero1 + segundoNumero1 + tercerNumero1)/3);
+    const mostrarCarrito = carrito.map(function(carrito) {
+        return "\n" + carrito.nombre +" - $" + carrito.precio + "\n";
+    });
+     
+    alert("Los productos de su carrito son los siguientes:" + mostrarCarrito);
 
 }
 
-function promediar2 (primerNumero2, segundoNumero2, tercerNumero2) {
-    
-    return ((primerNumero2 + segundoNumero2 + tercerNumero2)/3);
 
+
+function confirmarCompra() {
+    const respuesta = prompt("Desea comprar algo? \n1) Si \n2) No");
+    if (respuesta == "1"){
+        return true;
+    }
+    else {
+        return false;
+        
+    }
 }
 
-promedio1 = promediar1 (primerNumero1, segundoNumero1, tercerNumero1);
-
-promedio2 = promediar2 (primerNumero2, segundoNumero2, tercerNumero2);
-
-
-if (promedio1 >= 7 && promedio2 >= 7) {
-
-    alert("El promedio del alumno " + nombre1 + " es " + promedio1 + " y el promedio del alumno " + nombre2 + " es " + promedio2 + ", Felicidades!!!");
+function mostrarProductos() {
+    let menuMostrar = "Que producto quiere?\n";
+    productos.forEach(Motor=> {
+        menuMostrar += Motor.id +" -" + Motor.nombre +" - $" + Motor.precio+"\n"; 
+    })
+    let respuesta = prompt(menuMostrar);
+    return respuesta;
 }
 
-else if (promedio1 >= 7 && promedio2 < 7) {
+function comprarProducto() {
+    while (confirmarCompra()) {
+        let productoElegido = mostrarProductos();
 
-    alert("El promedio del alumno " + nombre1 + " es " + promedio1 + " y el promedio del alumno " + nombre2 + " es " + promedio2 + " Felicidades para " + nombre1 + ", Una lastima por " + nombre2 + " !!!");
+        agregarAlCarrito(productoElegido);
 
+         mostrarCarritoActual();
+    }
 }
 
-else if (promedio2 >= 7 && promedio1 < 7) {
-
-    alert("El promedio del alumno " + nombre1 + " es " + promedio1 + " y el promedio del alumno " + nombre2 + " es " + promedio2 + " Felicidades para " + nombre2 + ", Una lastima por " + nombre1 + " !!!");
-
-}
-
-else {
-
-    alert("El promedio del alumno " + nombre1 + " es " + promedio1 + " y el promedio del alumno " + nombre2 + " es " + promedio2 + ", Una lastima por ambos!!");
-
-}
+comprarProducto();
