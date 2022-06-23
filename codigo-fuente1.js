@@ -1,4 +1,7 @@
-let totalDeLaCompra = 0;
+const botonCarrito = document.getElementById("button");
+
+botonCarrito.onclick = mostrarCarritoActual;
+
 
 class Motor {
     constructor (id, nombre, precio) {
@@ -33,12 +36,13 @@ function agregarAlCarrito (id) {
 }
 
 function mostrarCarritoActual () {
+
     
     const mostrarCarrito = carrito.map(function(carrito) {
         return "\n" + carrito.nombre +" - $" + carrito.precio + "\n";
     });
      
-    alert("Los productos de su carrito son los siguientes:" + mostrarCarrito);
+     alert("Los productos de su carrito son los siguientes:" + mostrarCarrito);
 
 }
 
@@ -57,8 +61,8 @@ function confirmarCompra() {
 
 function mostrarProductos() {
     let menuMostrar = "Que producto quiere?\n";
-    productos.forEach(Motor=> {
-        menuMostrar += Motor.id +" -" + Motor.nombre +" - $" + Motor.precio+"\n"; 
+    productos.forEach(motor=> {
+        menuMostrar += motor.id +" -" + motor.nombre +" - $" + motor.precio +"\n"; 
     })
     let respuesta = prompt(menuMostrar);
     return respuesta;
@@ -70,7 +74,6 @@ function comprarProducto() {
 
         agregarAlCarrito(productoElegido);
 
-         mostrarCarritoActual();
     }
 }
 
