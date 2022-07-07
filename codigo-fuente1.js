@@ -1,6 +1,13 @@
 const botonCarrito = document.getElementById("button");
-
+const carrito1 = document.getElementById("carrito1");
 botonCarrito.onclick = mostrarCarritoActual;
+const carrito = [];
+
+// LOCAL STORAGE?
+
+/* const itemsJSON = JSON.stringify(carrito);
+localStorage.setItem ("items" , carrito); */
+
 
 
 class Motor {
@@ -21,7 +28,7 @@ const motor3 = new Motor("AUTCOR060","Ch 800","23500");
 
 const productos = [motor1, motor2, motor3];
 
-const carrito = [];
+
 
 function agregarAlCarrito (id) {
 
@@ -41,8 +48,9 @@ function mostrarCarritoActual () {
     const mostrarCarrito = carrito.map(function(carrito) {
         return "\n" + carrito.nombre +" - $" + carrito.precio + "\n";
     });
-     
-     alert("Los productos de su carrito son los siguientes:" + mostrarCarrito);
+    
+ 
+    carrito1.innerHTML = "Los productos de su carritos son los siguientes:" + mostrarCarrito;
 
 }
 
